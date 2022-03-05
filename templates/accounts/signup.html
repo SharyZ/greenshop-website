@@ -1,0 +1,45 @@
+{% extends 'layouts/main.html' %} {% load static %}
+
+<!-- -->
+
+{% block content %}
+<section class="container mx-auto max-w-7xl px-4 py-8">
+  <div class="flex items-center justify-center py-10 md:py-20">
+    <form class="max-w-xs p-5" action="" method="POST">
+      {% csrf_token %}
+      <div
+        class="mb-7 flex flex-col items-center justify-center space-y-4 text-center"
+      >
+        <h1 class="text-3xl font-bold">Signup</h1>
+        <p>Enter your email, username and password to reigster.</p>
+      </div>
+      {% if messages %}
+      <ul class="messages">
+          {% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+          {% endfor %}
+      </ul>
+      {% endif %}
+      {% for field in form %}
+        <div class="mb-4">{{ field }}</div>
+      {% endfor %}
+      <div class="mb-4">
+        <button
+          class="bg-primary-500 w-full rounded-md py-3 px-6 font-bold text-white"
+          type="submit"
+        >
+          Signup
+        </button>
+      </div>
+      <div>
+        <a
+          class="border-primary-500 text-primary-500 inline-block w-full rounded-md border py-3 px-6 text-center font-bold"
+          href="{% url 'login' %}"
+        >
+          Or Login
+        </a>
+      </div>
+    </form>
+  </div>
+</section>
+{% endblock content %}
