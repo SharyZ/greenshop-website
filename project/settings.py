@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
 
     'accounts.apps.AccountsConfig',
+    'products.apps.ProductsConfig',
 ]
 
 MIDDLEWARE = [
@@ -147,7 +148,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_CONFIGS = {
-    'portfolio_ckeditor': {
+    'greenshop_ckeditor': {
         'toolbar': 'Custom',
         'toolbar_Custom': [
             ['Styles', 'Format', 'FontSize'],
