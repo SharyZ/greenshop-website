@@ -49,15 +49,7 @@
       <ul class="hidden p-2 md:flex md:items-center md:space-x-6" id="menu">
         <li>
           <a
-            class="mt-1 block rounded-md px-2 py-1 font-bold text-black hover:underline md:mt-0 md:inline-block"
-            href="index.html"
-          >
-            Home
-          </a>
-        </li>
-        <li>
-          <a
-            class="mt-1 block rounded-md px-2 py-1 hover:underline md:mt-0 md:inline-block"
+            class="mt-1 block rounded-md px-2 py-1 hover:underline md:mt-0 md:inline-block {% if 'products' in request.path %}font-bold text-black{% endif %}"
             href="{% url 'products' %}"
           >
             Products
@@ -65,7 +57,7 @@
         </li>
         <li>
           <a
-            class="mt-1 block rounded-md px-2 py-1 hover:underline md:mt-0 md:inline-block"
+            class="mt-1 block rounded-md px-2 py-1 hover:underline md:mt-0 md:inline-block {% if 'blog' in request.path %}font-bold text-black{% endif %}"
             href="{% url 'blog' %}"
           >
             Blog
