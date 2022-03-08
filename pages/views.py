@@ -10,11 +10,13 @@ from blog.models import Post
 def home_page(request):
     categories = Category.objects.all().annotate(products_count=Count('product'))
     products = Product.objects.order_by('-created_at')
+    products_count = products.count()
     posts = Post.objects.order_by('-created_at')[:4]
 
     context = {
         'categories': categories,
         'products': products,
+        'products_count': products_count,
         'posts': posts,
     }
     template_name = 'pages/home.html'

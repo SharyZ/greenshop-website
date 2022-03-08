@@ -18,11 +18,17 @@
       <div class="p-2">
         <h3 class="mb-2 text-lg font-bold">Categories</h3>
         <ul class="flex flex-col space-y-4 p-2">
-          {% for category in categories %}
           <li class="text-primary-500 font-medium">
             <a class="flex items-center justify-between" href="#">
+              <span>All</span>
+              <span>({{ products_count }})</span>
+            </a>
+          </li>
+          {% for category in categories %}
+          <li>
+            <a class="flex items-center justify-between" href="#">
               <span>{{ category.name }}</span>
-              <span>{{ category.products_count }}</span>
+              <span>({{ category.products_count }})</span>
             </a>
           </li>
           {% endfor %}
