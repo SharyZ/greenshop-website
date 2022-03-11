@@ -65,7 +65,7 @@
         </li>
         {% if request.user.is_authenticated %}
         <li>
-          <a href="cart.html" class="relative hidden p-2 md:flex">
+          <a href="{% url 'cart' %}" class="relative hidden p-2 md:flex">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="h-6 w-6"

@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.html import format_html
 
-from .models import Category, Product
+from .models import CartItem, Category, Cart, Product
 
 # Register your models here.
 
@@ -27,3 +27,5 @@ class ProductAdmin(admin.ModelAdmin):
 
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Product, ProductAdmin)
+admin.site.register(Cart)
+admin.site.register(CartItem)
