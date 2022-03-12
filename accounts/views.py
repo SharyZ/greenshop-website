@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 
-from .forms import CustomerSignupForm
+from .forms import CustomerProfileEditForm, CustomerSignupForm
 from .models import Customer
 
 from products.models import Cart, Product
@@ -71,8 +71,32 @@ def logout_page(request):
 
 @login_required(login_url='login')
 def profile_page(request):
-    context = {}
+    customer = request.user.customer
+
+    context = {
+        'customer': customer,
+    }
     template_name = 'accounts/profile.html'
+
+    return render(request, template_name, context)
+
+
+@login_required(login_url='login')
+def profile_edit_page(request):
+    customer = request.user.customer
+    form = CustomerProfileEditForm(instance=customer)
+
+    if request.method == 'POST':
+        form = CustomerProfileEditForm(
+            request.POST, request.FILES, instance=customer)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+
+    context = {
+        'form': form,
+    }
+    template_name = 'accounts/profile-edit.html'
 
     return render(request, template_name, context)
 
