@@ -16,6 +16,8 @@ class Customer(models.Model):
         User, on_delete=models.CASCADE, null=True, blank=True)
     phone = models.CharField(
         max_length=50, help_text="Your phone number like: +998XXYYYYYYY", null=True, blank=True)
+    profile_picture = models.ImageField(
+        upload_to='profile/', null=True, blank=True)
 
 
 class Address(models.Model):
