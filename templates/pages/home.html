@@ -28,21 +28,31 @@
   </div>
 </section>
 
-<section class="container mx-auto max-w-7xl px-4 py-8">
+<section class="container mx-auto max-w-7xl px-4 py-8" id="products">
   <div class="flex lg:space-x-10">
     <div class="hidden lg:block lg:w-1/4">
       <div class="p-2">
         <h3 class="mb-2 text-lg font-bold">Categories</h3>
         <ul class="flex flex-col space-y-4 p-2">
-          <li class="text-primary-500 font-medium">
-            <a class="flex items-center justify-between" href="#">
+          <li
+            {% if request.GET.cat|stringformat:'s' == category.id|stringformat:'s' %}
+            class="text-primary-500 font-medium"
+            {% endif %}
+          >
+            <a class="flex items-center justify-between" href="/">
               <span>All</span>
-              <span>({{products_count}})</span>
             </a>
           </li>
           {% for category in categories %}
-          <li>
-            <a class="flex items-center justify-between" href="#">
+          <li
+            {% if request.GET.cat|stringformat:'s' == category.id|stringformat:'s' %}
+            class="text-primary-500 font-medium"
+            {% endif %}
+          >
+            <a
+              class="flex items-center justify-between"
+              href="/?cat={{category.id}}"
+            >
               <span>{{ category.name }}</span>
               <span>({{ category.products_count }})</span>
             </a>
@@ -52,8 +62,8 @@
       </div>
     </div>
     <div class="w-full lg:w-3/4">
+      {% if products_count %} {% for product in products %}
       <div class="grid grid-cols-2 gap-10 md:grid-cols-3">
-        {% for product in products %}
         <a class="inline-block" href="{% url 'product' product.id %}">
           <img
             class="w-full"
@@ -67,8 +77,10 @@
             </span>
           </div>
         </a>
-        {% endfor %}
       </div>
+      {% endfor %} {% else %}
+      <h2 class="mb-2 text-lg font-bold text-center">There are no products in this category</h2>
+      {% endif %}
       <div class="mt-6 flex items-center justify-center p-6">
         <a
           class="bg-primary-500 hover:bg-primary-700 inline-block rounded py-3 px-6 uppercase text-white"
