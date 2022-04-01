@@ -62,23 +62,25 @@
       </div>
     </div>
     <div class="w-full lg:w-3/4">
-      {% if products_count %} {% for product in products %}
-      <div class="grid grid-cols-2 gap-10 md:grid-cols-3">
-        <a class="inline-block" href="{% url 'product' product.id %}">
-          <img
-            class="w-full"
-            src="{{ product.featured_image.url }}"
-            alt="{{ product.name }}"
-          />
-          <div class="mt-5">
-            <h4 class="font-bold text-lg">{{ product.name }}</h4>
-            <span class="text-primary-500 text-lg font-bold">
-              ${{ product.price }}
-            </span>
-          </div>
-        </a>
-      </div>
-      {% endfor %} {% else %}
+      {% if products_count %}
+        <div class="grid grid-cols-2 gap-10 md:grid-cols-3">
+          {% for product in products %}
+            <a class="inline-block" href="{% url 'product' product.id %}">
+              <img
+                class="w-full"
+                src="{{ product.featured_image.url }}"
+                alt="{{ product.name }}"
+              />
+              <div class="mt-5">
+                <h4 class="font-bold text-lg">{{ product.name }}</h4>
+                <span class="text-primary-500 text-lg font-bold">
+                  ${{ product.price }}
+                </span>
+              </div>
+            </a>
+          {% endfor %}
+        </div>
+      {% else %}
       <h2 class="mb-2 text-lg font-bold text-center">There are no products in this category</h2>
       {% endif %}
       <div class="mt-6 flex items-center justify-center p-6">
