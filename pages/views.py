@@ -10,9 +10,9 @@ from blog.models import Post
 def home_page(request):
     if 'cat' in request.GET:
         cat = request.GET['cat']
-        products = Product.objects.filter(category__id=cat)
+        products = Product.objects.filter(category__id=cat)[:6]
     else:
-        products = Product.objects.order_by('-created_at')
+        products = Product.objects.order_by('-created_at')[:6]
 
     categories = Category.objects.all().annotate(products_count=Count('product'))
     products_count = products.count()
