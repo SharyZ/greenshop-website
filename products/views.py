@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404, render
 from django.db.models import Count
+from django.core.paginator import Paginator, EmptyPage
 
 from .models import Category, Product
 
@@ -10,6 +11,14 @@ def products_page(request):
     categories = Category.objects.all().annotate(products_count=Count('product'))
     products = Product.objects.order_by('-created_at')
     products_count = products.count()
+
+    products = Paginator(products, 6)
+    page_number = request.GET.get('page', 1)
+
+    try:
+        products = products.page(page_number)
+    except EmptyPage:
+        products = products.page(1)
 
     context = {
         'categories': categories,

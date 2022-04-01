@@ -54,24 +54,21 @@
         {% endfor %}
       </div>
       <div class="mt-6 flex items-center justify-center space-x-4 p-6">
+        {% if products.has_previous %}
+        <a
+          class="bg-primary-500 hover:bg-primary-700 inline-flex rounded py-2 px-4 uppercase text-white"
+          href="?page={{ products.previous_page_number }}"
+        >
+          &larr; Previous
+        </a>
+        {% endif %} {% if products.has_next %}
         <a
           class="bg-primary-500 hover:bg-primary-700 inline-block rounded py-2 px-4 uppercase text-white"
-          href="products.html"
+          href="?page={{ products.next_page_number }}"
         >
-          1
+          Next &rarr;
         </a>
-        <a
-          class="border-primary-500 hover:bg-primary-500 text-primary-500 inline-block rounded border py-2 px-4 uppercase hover:text-white"
-          href="products.html"
-        >
-          2
-        </a>
-        <a
-          class="border-primary-500 hover:bg-primary-500 text-primary-500 inline-block rounded border py-2 px-4 uppercase hover:text-white"
-          href="products.html"
-        >
-          3
-        </a>
+        {% endif %}
       </div>
     </div>
   </div>
