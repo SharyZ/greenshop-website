@@ -26,8 +26,6 @@ class Address(models.Model):
     city = models.CharField(
         max_length=100, choices=CITY_CHOICES, null=False)
     address = models.CharField(max_length=150, null=False)
-    cart = models.ForeignKey('products.Cart', null=True,
-                             blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.address

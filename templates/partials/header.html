@@ -63,7 +63,6 @@
             Blog
           </a>
         </li>
-        {% if request.user.is_authenticated %}
         <li>
           <a href="{% url 'cart' %}" class="relative hidden p-2 md:flex">
             <svg
@@ -87,6 +86,7 @@
             </span>
           </a>
         </li>
+        {% if request.user.is_authenticated %}
         <li>
           <a href="{% url 'profile' %}" class="font-bold">
             @{{request.user}}

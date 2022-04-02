@@ -7,8 +7,6 @@ from django.contrib import messages
 from .forms import CustomerProfileEditForm, CustomerSignupForm
 from .models import Customer
 
-from products.models import Cart, Product
-
 # Create your views here.
 
 
@@ -99,30 +97,3 @@ def profile_edit_page(request):
     template_name = 'accounts/profile-edit.html'
 
     return render(request, template_name, context)
-
-
-@login_required(login_url='login')
-def cart_page(request):
-    customer = request.user.customer
-    cart, created = Cart.objects.get_or_create(customer=customer)
-    cart_items = cart.cartitem_set.all()
-
-    context = {
-        'cart_items': cart_items,
-        'cart': cart,
-    }
-    template_name = 'accounts/cart.html'
-
-    return render(request, template_name, context)
-
-
-@login_required(login_url='login')
-def add_product_to_cart(request, product_id):
-    user = request.user
-    product = get_object_or_404(Product, id=product_id)
-
-
-@login_required(login_url='login')
-def delete_product_from_cart(request, product_id):
-    user = request.user
-    product = get_object_or_404(Product, id=product_id)
