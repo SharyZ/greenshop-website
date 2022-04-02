@@ -8,18 +8,21 @@ from blog.models import Post
 
 
 def home_page(request):
-    if 'cat' in request.GET:
-        cat = request.GET['cat']
-        products = Product.objects.filter(category__id=cat)[:6]
-    else:
-        products = Product.objects.order_by('-created_at')[:6]
-
     categories = Category.objects.all().annotate(products_count=Count('product'))
+    products = Product.objects.order_by('-created_at')[:6]
+
+    active_category = int(request.GET.get('cat', 0))
+
+    if active_category:
+        products = Product.objects.filter(
+            category__id=active_category).order_by('-created_at')[:6]
+
     products_count = products.count()
     posts = Post.objects.order_by('-created_at')[:4]
 
     context = {
         'categories': categories,
+        'active_category': active_category,
         'products': products,
         'products_count': products_count,
         'posts': posts,

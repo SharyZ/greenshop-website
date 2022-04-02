@@ -10,6 +10,13 @@ from .models import Category, Product
 def products_page(request):
     categories = Category.objects.all().annotate(products_count=Count('product'))
     products = Product.objects.order_by('-created_at')
+
+    active_category = int(request.GET.get('cat', 0))
+
+    if active_category:
+        products = Product.objects.filter(
+            category__id=active_category).order_by('-created_at')
+
     products_count = products.count()
 
     products = Paginator(products, 6)
@@ -22,6 +29,7 @@ def products_page(request):
 
     context = {
         'categories': categories,
+        'active_category': active_category,
         'products': products,
         'products_count': products_count,
     }

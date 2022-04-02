@@ -35,17 +35,17 @@
         <h3 class="mb-2 text-lg font-bold">Categories</h3>
         <ul class="flex flex-col space-y-4 p-2">
           <li
-            {% if request.GET.cat|stringformat:'s' == category.id|stringformat:'s' %}
+            {% if not active_category %}
             class="text-primary-500 font-medium"
             {% endif %}
           >
             <a class="flex items-center justify-between" href="/">
-              <span>All</span>
+              <span>All Categories</span>
             </a>
           </li>
           {% for category in categories %}
           <li
-            {% if request.GET.cat|stringformat:'s' == category.id|stringformat:'s' %}
+            {% if category.id == active_category %}
             class="text-primary-500 font-medium"
             {% endif %}
           >

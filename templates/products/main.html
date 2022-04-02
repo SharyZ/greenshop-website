@@ -18,15 +18,25 @@
       <div class="p-2">
         <h3 class="mb-2 text-lg font-bold">Categories</h3>
         <ul class="flex flex-col space-y-4 p-2">
-          <li class="text-primary-500 font-medium">
-            <a class="flex items-center justify-between" href="#">
-              <span>All</span>
-              <span>({{ products_count }})</span>
+          <li
+            {% if not active_category %}
+            class="text-primary-500 font-medium"
+            {% endif %}
+          >
+            <a class="flex items-center justify-between" href=".">
+              <span>All Categories</span>
             </a>
           </li>
           {% for category in categories %}
-          <li>
-            <a class="flex items-center justify-between" href="#">
+          <li
+            {% if category.id == active_category %}
+            class="text-primary-500 font-medium"
+            {% endif %}
+          >
+            <a
+              class="flex items-center justify-between"
+              href="?cat={{category.id}}"
+            >
               <span>{{ category.name }}</span>
               <span>({{ category.products_count }})</span>
             </a>
@@ -36,23 +46,27 @@
       </div>
     </div>
     <div class="w-full lg:w-3/4">
-      <div class="grid grid-cols-2 gap-10 md:grid-cols-3">
-        {% for product in products %}
-        <a class="inline-block" href="{% url 'product' product.id %}">
-          <img
-            class="w-full"
-            src="{{ product.featured_image.url }}"
-            alt="{{ product.name }}"
-          />
-          <div class="mt-5">
-            <h4 class="font-bold text-lg">{{ product.name }}</h4>
-            <span class="text-primary-500 text-lg font-bold">
-              ${{ product.price }}
-            </span>
-          </div>
-        </a>
-        {% endfor %}
-      </div>
+      {% if products_count %}
+        <div class="grid grid-cols-2 gap-10 md:grid-cols-3">
+          {% for product in products %}
+          <a class="inline-block" href="{% url 'product' product.id %}">
+            <img
+              class="w-full"
+              src="{{ product.featured_image.url }}"
+              alt="{{ product.name }}"
+            />
+            <div class="mt-5">
+              <h4 class="font-bold text-lg">{{ product.name }}</h4>
+              <span class="text-primary-500 text-lg font-bold">
+                ${{ product.price }}
+              </span>
+            </div>
+          </a>
+          {% endfor %}
+        </div>
+      {% else %}
+        <h2 class="mb-2 text-lg font-bold text-center">There are no products in this category</h2>
+      {% endif %}
       <div class="mt-6 flex items-center justify-center space-x-4 p-6">
         {% if products.has_previous %}
         <a
